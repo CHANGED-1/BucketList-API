@@ -1,4 +1,4 @@
-angular.module('bucketListApp')
+angular.module('bucketlistApp')
     .controller('RegisterController', ['$scope', '$location', 'AuthService',
         function($scope, $location, AuthService) {
             $scope.userData = {};

@@ -1,4 +1,4 @@
-angular.module('bucketListApp')
+angular.module('bucketlistApp')
     .controller('BucketListController', ['$scope', 'BucketListService',
         function($scope, BucketListService) {
             $scope.bucketlists = [];

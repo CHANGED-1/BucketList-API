@@ -1,4 +1,4 @@
-angular.module('bucketListApp', ['ngRoute'])
+angular.module('bucketlistApp', ['ngRoute'])
     .constant('API_URL', 'http://localhost:5000/api/v1')
     .run(['$rootScope', '$location', 'AuthService', function($rootScope, $location, AuthService) {
         $rootScope.isLoggedIn = function() {

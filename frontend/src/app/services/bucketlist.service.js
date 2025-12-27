@@ -1,4 +1,4 @@
-angular.module('bucketListApp')
+angular.module('bucketlistApp')
     .factory('BucketListService', ['$http', 'API_URL', function($http, API_URL) {
         var service = {};
         
