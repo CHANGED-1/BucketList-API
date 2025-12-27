@@ -1,0 +1,116 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>My Bucket Lists</h2>
+        
+        <!-- Alerts -->
+        <div ng-if="success" class="alert alert-success alert-dismissible">
+            {{ success }}
+            <button type="button" class="btn-close" ng-click="success = null"></button>
+        </div>
+        
+        <div ng-if="error" class="alert alert-danger alert-dismissible">
+            {{ error }}
+            <button type="button" class="btn-close" ng-click="error = null"></button>
+        </div>
+        
+        <!-- Create New Bucket List -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5>Create New Bucket List</h5>
+                <form ng-submit="createBucketList()" class="row g-3">
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" 
+                               ng-model="newBucketList.name" 
+                               placeholder="Enter bucket list name" 
+                               required>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Search -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <form ng-submit="search()" class="row g-3">
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" 
+                               ng-model="searchQuery" 
+                               placeholder="Search bucket lists...">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-secondary w-100">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Bucket Lists -->
+        <div ng-repeat="bucketlist in bucketlists" class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ bucketlist.name }}</h5>
+                <button class="btn btn-danger btn-sm" ng-click="deleteBucketList(bucketlist.id)">
+                    Delete
+                </button>
+            </div>
+            <div class="card-body">
+                <!-- Items -->
+                <ul class="list-group mb-3">
+                    <li ng-repeat="item in bucketlist.items" 
+                        class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <input type="checkbox" 
+                                   ng-model="item.done" 
+                                   ng-change="toggleItem(bucketlist.id, item)"
+                                   class="form-check-input me-2">
+                            <span ng-class="{'text-decoration-line-through': item.done}">
+                                {{ item.name }}
+                            </span>
+                        </div>
+                        <button class="btn btn-danger btn-sm" 
+                                ng-click="deleteItem(bucketlist.id, item.id)">
+                            Delete
+                        </button>
+                    </li>
+                </ul>
+                
+                <!-- Add Item -->
+                <form ng-submit="createItem(bucketlist.id)" class="row g-3">
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" 
+                               ng-model="newItem[bucketlist.id].name" 
+                               placeholder="Add new item...">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-success w-100">Add</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-muted">
+                Created: {{ bucketlist.date_created | date:'medium' }}
+            </div>
+        </div>
+        
+        <!-- Pagination -->
+        <nav ng-if="totalPages > 1">
+            <ul class="pagination">
+                <li class="page-item" ng-class="{disabled: currentPage === 1}">
+                    <a class="page-link" ng-click="prevPage()">Previous</a>
+                </li>
+                <li class="page-item active">
+                    <span class="page-link">{{ currentPage }} / {{ totalPages }}</span>
+                </li>
+                <li class="page-item" ng-class="{disabled: currentPage === totalPages}">
+                    <a class="page-link" ng-click="nextPage()">Next</a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Empty State -->
+        <div ng-if="bucketlists.length === 0" class="text-center py-5">
+            <p class="lead">No bucket lists found. Create one to get started!</p>
+        </div>
+    </div>
+</div>
