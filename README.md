@@ -47,8 +47,8 @@ A RESTful API for managing bucket lists - things you want to do before you die.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/bucketlist-api.git
-cd bucketlist-api
+git clone https://github.com/CHANGED-1/BucketList-API.git
+cd BucketList-Api
 ```
 
 2. Create virtual environment:
